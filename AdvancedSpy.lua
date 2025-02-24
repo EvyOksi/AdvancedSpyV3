@@ -27,13 +27,52 @@ local function debugLog(module, message)
     end
 end
 
--- Load modules
-local UIComponents = require("modules.UIComponents")
-local RemoteInterceptor = require("modules.RemoteInterceptor")
-local ScriptGenerator = require("modules.ScriptGenerator")
-local Theme = require("modules.Theme")
-local TouchControls = require("modules.TouchControls")
-local NetworkVisualizer = require("modules.NetworkVisualizer")
+-- Define the base URL for the raw GitHub files
+local baseUrl = "https://raw.githubusercontent.com/EvyOksi/AdvancedSpyV3/main/modules/"
+
+-- Define the raw URLs for each module
+local urlNetworkVisualizer = baseUrl .. "NetworkVisualizer.lua"
+local urlRemoteInterceptor = baseUrl .. "RemoteInterceptor.lua"
+local urlScriptGenerator = baseUrl .. "ScriptGenerator.lua"
+local urlTheme = baseUrl .. "Theme.lua"
+local urlTouchControls = baseUrl .. "TouchControls.lua"
+local urlUIComponents = baseUrl .. "UIComponents.lua"
+
+-- Fetch the raw content for each module
+local networkVisualizerContent = game:HttpGet(urlNetworkVisualizer)
+local remoteInterceptorContent = game:HttpGet(urlRemoteInterceptor)
+local scriptGeneratorContent = game:HttpGet(urlScriptGenerator)
+local themeContent = game:HttpGet(urlTheme)
+local touchControlsContent = game:HttpGet(urlTouchControls)
+local uiComponentsContent = game:HttpGet(urlUIComponents)
+
+-- Load and execute the content using loadstring (with pcall for error handling)
+local success1, errorMessage1 = pcall(loadstring(networkVisualizerContent))
+local success2, errorMessage2 = pcall(loadstring(remoteInterceptorContent))
+local success3, errorMessage3 = pcall(loadstring(scriptGeneratorContent))
+local success4, errorMessage4 = pcall(loadstring(themeContent))
+local success5, errorMessage5 = pcall(loadstring(touchControlsContent))
+local success6, errorMessage6 = pcall(loadstring(uiComponentsContent))
+
+-- Check for any errors and handle them
+if not success1 then
+    warn("Error executing NetworkVisualizer.lua: " .. errorMessage1)
+end
+if not success2 then
+    warn("Error executing RemoteInterceptor.lua: " .. errorMessage2)
+end
+if not success3 then
+    warn("Error executing ScriptGenerator.lua: " .. errorMessage3)
+end
+if not success4 then
+    warn("Error executing Theme.lua: " .. errorMessage4)
+end
+if not success5 then
+    warn("Error executing TouchControls.lua: " .. errorMessage5)
+end
+if not success6 then
+    warn("Error executing UIComponents.lua: " .. errorMessage6)
+end
 
 -- Core UI Elements
 local GUI = {
